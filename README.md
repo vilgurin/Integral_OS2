@@ -10,7 +10,7 @@
 8.After the full installation Os/2 will open the window "Install additional options". Do not ignore!<br/>
 9. IMPORTANT!!! Install OS/2 toolkit. Without the toolkit you will not be able to use WATCOM IDE.<br/>
 
-##COMPILER INSTALLATION
+## COMPILER INSTALLATION
 1. Download WATCOM compiler from the web-site https://www.os2site.com/sw/dev/openwatcom/index.html<br/>
 2. Add the zip files to an iso<br/>
 3. Insert an iso into the VM<br/>
