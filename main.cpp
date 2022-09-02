@@ -14,9 +14,9 @@ const int mode = 1;
 const double a = 20;
 const double b = 0.2;
 const double c = 2*3.14;
-const double abs_err = 10;
-const double rel_err = 10;
-const int number_of_threads = 4;
+const double abs_err = 1;
+const double rel_err = 0.002;
+const int number_of_threads = 8;
 double array[number_of_threads];
 double division;
 
@@ -75,7 +75,7 @@ void thread_code(void *param){
         stepp = step1 * 2;
         result2 = calculate_thread(x_start1, x_finish1, y_start1, y_finish1, step1);
         step1 = stepp;
-        if ((fabs(result1-result2) < abs_err) && (fabs((result1-result2)/result1)) < rel_err){
+        if ((fabs(result1-result2) < abs_err) || (fabs((result1-result2)/result1)) < rel_err){
             array[counter1] = result1;
             break;
         }
@@ -136,12 +136,16 @@ double check_results(double x_start, double x_finish, double y_start, double y_f
 }
 
 int main(){
-
+    double x_start = -100;
+    double x_finish = 100;
+    double y_start = -100;
+    double y_finish = 100;
+    double step = 200;
     if (mode == 1){
         clock_t start = clock();
-        division = 200/number_of_threads;
+        division = (x_finish-x_start)/number_of_threads;
         for (int i =0; i < number_of_threads; i++){
-            start_thread(-100,100,-100,100,200,i,division);
+            start_thread(x_start,x_finish,y_start,y_finish,step,i,division);
         }
         double final = 0;
         for (int j =0; j < number_of_threads; j++){
@@ -155,7 +159,7 @@ int main(){
     }
     else{
         clock_t start = clock();
-        double res = check_results(-100,100,-100,100,200);
+        double res = check_results(x_start,x_finish,y_start,y_finish,step);
         clock_t finish = clock();
         double final_time = finish - start;
         printf("%f\n", res);
